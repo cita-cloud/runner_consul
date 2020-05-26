@@ -2,6 +2,9 @@
 
 network_grpc_port=$1
 
+pid=$$
+echo "pid: $pid"
+
 echo "start network:"
 echo `date +%Y-%m-%d-%H-%M-%S.%N`
 echo "config:"

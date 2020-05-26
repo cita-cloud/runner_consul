@@ -8,7 +8,23 @@ fi
 node_index=$1
 network_grpc_port=$2
 
-#register network configuration
-consul kv put "node$node_index/network_port" $network_grpc_port
+#register network service
+SERVICE_PORT=$network_grpc_port \
+NODE_NAME=node$node_index \
+SERVICE_NAME=network \
+consul-template -template "$ROOT_PATH/template/network_service.tpl:network_service.json" \
+ -consul-addr 127.0.0.1:8500 \
+ -once
 
-NODE_NAME=node$node_index SERVICE_NAME=network consul-template -template "$ROOT_PATH/template/log4rs.tpl:network-log4rs.yaml:killall fake_network.sh || echo xxx" -consul-addr 127.0.0.1:8500 -exec "$ROOT_PATH/bin/fake_network.sh $network_grpc_port"
+curl \
+  --request PUT \
+  --data @network_service.json \
+  http://127.0.0.1:8500/v1/agent/service/register
+
+#start network service
+SERVICE_PORT=$network_grpc_port \
+NODE_NAME=node$node_index \
+SERVICE_NAME=network \
+consul-template -template "$ROOT_PATH/template/log4rs.tpl:network-log4rs.yaml" \
+  -consul-addr 127.0.0.1:8500 \
+  -exec "$ROOT_PATH/bin/fake_network.sh $network_grpc_port"
