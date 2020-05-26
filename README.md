@@ -50,6 +50,8 @@
 
 `kms`，`storage`，`executor`都类似。不过`kms`服务需要提前手动启动好。
 
+网络微服务需要两个配置文件，网络相关的配置`network-config.toml`和网络需要的私钥`network-key`。这两个文件本来是`config-tool`直接生成的，但是为了能动态修改，再使用`consul-template`倒腾一遍。
+
 ##### 共识
 
 除了注册自身的服务，还要注册`global.consensus.block_delay_number`这个全局配置。
@@ -81,6 +83,20 @@ block_delay_number = 6
 端口获取方式同上。
 
 这里的`block_delay_number`就是前面共识注册的`global.consensus.block_delay_number`。
+
+# 使用说明
+
+使用`config-tool`生成链的节点配置。
+
+将生成的节点文件夹(不包括顶层以链名称命名的文件夹)拷贝到`chain_config`目录下。
+
+编译`network`，`pos`，`controller`，`storage`，`kms`和`executor`等微服务，将可执行文件拷贝到`bin`目录下。
+
+然后在项目根目录下执行如下命令启动节点：
+
+```
+./bin/start_node 0
+```
 
 
 

@@ -2,6 +2,8 @@
 
 n=$1
 echo "node number is $n"
+mkdir -p ./node$n
+cd ./node$n
 
 base_port=$[49999+n*1000]
 echo "base_port is $base_port"
