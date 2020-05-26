@@ -32,6 +32,10 @@
 
 包括日志等级和日志的`appenders`。每个微服务一个日志配置文件的模板。`global.log4rs.level`和`global.log4rs.appenders`。
 
+##### 共识
+
+`global.consensus.block_delay_number`，共识需要延迟几个块才能确认。
+
 ##### 环境变量
 
 微服务的名字用环境变量(`SERVICE_NAME`)。这样就可以只使用一个日志模板了。
@@ -42,7 +46,41 @@
 
 ##### 网络
 
-注册一个`service`，服务名为`nodex/network`。服务的具体配置也通过`consul-template`来生成。
+注册一个`service`，服务名为`node{NODE_INDEX}_network`。服务的具体配置也通过`consul-template`来生成。
+
+`kms`，`storage`，`executor`都类似。不过`kms`服务需要提前手动启动好。
+
+##### 共识
+
+除了注册自身的服务，还要注册`global.consensus.block_delay_number`这个全局配置。
+
+自身的配置文件`consensus-config.toml`包含：
+
+```
+network_port = 51000
+controller_port = 51005
+```
+
+这些服务的端口是通过`consul-template`从`consul`获取的之前的服务注册的`service`信息。
+
+##### Controller
+
+注册自身的服务。
+
+自身的配置文件`controller-config.toml`包含：
+
+```
+network_port = 51000
+consensus_port = 51001
+storage_port = 51003
+kms_port = 51005
+executor_port = 51002
+block_delay_number = 6
+```
+
+端口获取方式同上。
+
+这里的`block_delay_number`就是前面共识注册的`global.consensus.block_delay_number`。
 
 
 

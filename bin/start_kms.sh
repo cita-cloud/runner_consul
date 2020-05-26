@@ -7,7 +7,7 @@ fi
 
 node_index=$1
 grpc_port=$2
-service_name=network
+service_name=kms
 
 #register network service
 SERVICE_PORT=$grpc_port \
@@ -28,4 +28,4 @@ NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/fake_network.sh $grpc_port"
+  -exec "$ROOT_PATH/bin/fake_kms.sh $grpc_port"

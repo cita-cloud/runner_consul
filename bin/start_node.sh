@@ -30,4 +30,19 @@ consul kv put "node$n/global.log4rs.level" info
 consul kv put "node$n/global.log4rs.appenders" journey-service
 
 echo "start network"
-$ROOT_PATH/bin/start_network.sh $n $networ_port
+$ROOT_PATH/bin/start_network.sh $n $networ_port &
+
+echo "start kms"
+$ROOT_PATH/bin/start_kms.sh $n $kms_port &
+
+echo "start storage"
+$ROOT_PATH/bin/start_storage.sh $n $storage_port &
+
+echo "start executor"
+$ROOT_PATH/bin/start_executor.sh $n $executor_port &
+
+echo "start consensus"
+$ROOT_PATH/bin/start_consensus.sh $n $consensus_port &
+
+echo "start controller"
+$ROOT_PATH/bin/start_controller.sh $n $controller_port &
