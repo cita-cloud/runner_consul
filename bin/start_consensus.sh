@@ -25,11 +25,11 @@ curl \
 # set kv configuration
 consul kv put "node$node_index/global.consensus.block_delay_number" 6
 
-#start network service
+#start consensus service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -template "$ROOT_PATH/template/${service_name}-config.tpl:${service_name}-config.toml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/fake_consensus.sh $grpc_port"
+  -exec "$ROOT_PATH/bin/cita_ng_pos run -p $grpc_port"

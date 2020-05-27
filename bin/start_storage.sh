@@ -9,7 +9,7 @@ node_index=$1
 grpc_port=$2
 service_name=storage
 
-#register network service
+#register storage service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
@@ -22,10 +22,10 @@ curl \
   --data @${service_name}_service.json \
   http://127.0.0.1:8500/v1/agent/service/register
 
-#start network service
+#start storage service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/fake_storage.sh $grpc_port"
+  -exec "$ROOT_PATH/bin/cita_ng_storage run -p $grpc_port"

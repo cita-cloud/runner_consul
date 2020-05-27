@@ -1,6 +1,3 @@
-# Scan this file for changes every 30 seconds
-refresh_rate: 30 seconds
-
 appenders:
   # An appender named "stdout" that writes to stdout
   stdout:

@@ -9,7 +9,7 @@ node_index=$1
 grpc_port=$2
 service_name=kms
 
-#register network service
+#register kms service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
@@ -22,10 +22,13 @@ curl \
   --data @${service_name}_service.json \
   http://127.0.0.1:8500/v1/agent/service/register
 
-#start network service
+echo "please run:"
+echo "../bin/cita_kms run -p $grpc_port"
+
+#start fake kms service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/fake_kms.sh $grpc_port"
+  -exec "sleep infinity"
