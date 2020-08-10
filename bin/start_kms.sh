@@ -23,7 +23,7 @@ curl \
   http://127.0.0.1:8500/v1/agent/service/register
 
 echo "please run:"
-echo "../bin/cita_kms run -p $grpc_port"
+echo "../bin/kms run -p $grpc_port"
 
 #start fake kms service
 SERVICE_PORT=$grpc_port \

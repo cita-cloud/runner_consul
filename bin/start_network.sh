@@ -30,4 +30,4 @@ consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs
   -template "$ROOT_PATH/template/${service_name}-config.tpl:${service_name}-config.toml" \
   -template "$ROOT_PATH/template/${service_name}-key.tpl:${service_name}-key" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/cita_ng_network run -p $grpc_port"
+  -exec "$ROOT_PATH/bin/network run -p $grpc_port"

@@ -2,7 +2,7 @@
 
 **Consul**是HashiCorp公司推出的开源工具，用于实现分布式系统的服务发现与配置。 与其他分布式服务注册与发现的方案，**Consul**的方案更"一站式"，内置了服务注册与发现框架、分布一致性协议实现、健康检查、Key/Value存储、多数据中心方案，不再需要依赖其他工具。
 
-# CITA NG的问题
+# CITA-Cloud的问题
 
 都是微服务化之后的一些常规问题。
 
@@ -90,7 +90,7 @@ block_delay_number = 6
 
 将生成的节点文件夹(不包括顶层以链名称命名的文件夹)拷贝到`chain_config`目录下。
 
-编译`network`，`pos`，`controller`，`storage`，`kms`和`executor`等微服务，将可执行文件拷贝到`bin`目录下。
+编译`network`，`consensus`，`controller`，`storage`，`kms`和`executor`等微服务，将可执行文件拷贝到`bin`目录下。
 
 然后在项目根目录下执行如下命令启动节点：
 
@@ -98,7 +98,7 @@ block_delay_number = 6
 ./bin/start_node 0
 ```
 
-
+注意：`kms`服务因为需要交互式输入密码，所以无法由脚本启动。上述命令执行之后，会输出启动`kms`的命令，运行即可。
 
 
 

@@ -28,4 +28,4 @@ NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "$ROOT_PATH/bin/cita_ng_storage run -p $grpc_port"
+  -exec "$ROOT_PATH/bin/storage run -p $grpc_port"
