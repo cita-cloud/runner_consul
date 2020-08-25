@@ -22,13 +22,10 @@ curl \
   --data @${service_name}_service.json \
   http://127.0.0.1:8500/v1/agent/service/register
 
-echo "please run:"
-echo "../bin/kms run -p $grpc_port"
-
 #start fake kms service
 SERVICE_PORT=$grpc_port \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
   -consul-addr 127.0.0.1:8500 \
-  -exec "sleep infinity"
+  -exec "$ROOT_PATH/bin/kms run -p $grpc_port -k $ROOT_PATH/key_file"

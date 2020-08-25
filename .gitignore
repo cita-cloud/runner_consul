@@ -1,5 +1,10 @@
 *.yaml
 node*
 .idea/
-bin/cita_kms
-bin/cita_ng_*
+key_file
+bin/consensus
+bin/controller
+bin/executor
+bin/kms
+bin/network
+bin/storage
