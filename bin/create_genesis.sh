@@ -7,7 +7,8 @@ else
 fi
 
 # generate genesis.toml
-timestamp=`date +%s`
+# timestamp use milliseconds, so we need * 1000
+timestamp=`date +%s`000
 prevhash="\"0x0000000000000000000000000000000000000000000000000000000000000000\""
 echo -e "timestamp = ${timestamp}\nprevhash = ${prevhash}" | tee $ROOT_PATH/genesis.toml
 
