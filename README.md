@@ -86,19 +86,36 @@ block_delay_number = 6
 
 # 使用说明
 
-使用`config-tool`生成链的节点配置。
+1. 使用`config-tool`生成链的节点配置。将生成的节点文件夹(不包括顶层以链名称命名的文件夹)拷贝到`chain_config`目录下。
 
-将生成的节点文件夹(不包括顶层以链名称命名的文件夹)拷贝到`chain_config`目录下。
+2. 编译`network`，`consensus`，`controller`，`storage`，`kms`和`executor`等微服务，将可执行文件拷贝到`bin`目录下。
 
-编译`network`，`consensus`，`controller`，`storage`，`kms`和`executor`等微服务，将可执行文件拷贝到`bin`目录下。
+3. `kms`服务需要设置或者输入密码，将要使用的密码写入根目录下的`key_file`文件中。
 
-然后在项目根目录下执行如下命令启动节点：
+4. 生成`controller`服务需要的创世块相关的配置文件。
 
-```
-./bin/start_node 0
-```
+   ```
+   $ bin/create_genesis.sh  
+   timestamp = 1599022274
+   prevhash = "0x0000000000000000000000000000000000000000000000000000000000000000"
+   version = 0
+   chain_id = "0x0000000000000000000000000000000000000000000000000000000000000001"
+   admin = "0x010928818c840630a60b4fda06848cac541599462f"
+   block_interval = 3
+   validators = ["0x010928818c840630a60b4fda06848cac541599462f","0x010928818c840630a60b4fda06848cac541599462f",]
+   ```
 
-注意：`kms`服务需要设置或者输入密码，提前将要使用的密码写入跟目录下的`key_file`文件中。
+   同时会生成：
+
+   - `admin_kms.db`是预先存放了管理员私钥的`kms`数据库文件，`admin_key_id`为对应的私钥的序号。
+   - 每个节点文件中`genesis.toml`和`init_sys_config.toml`两个配置文件。
+   - 每个节点文件夹中`kms.db`是预先存放了验证节点私钥的`kms`数据库文件，`validator_key_id`为对应的私钥的序号。
+
+5. 在项目根目录下执行如下命令启动节点，参数为节点的序号：
+
+   ```
+   ./bin/start_node 0
+   ```
 
 
 

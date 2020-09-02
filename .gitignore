@@ -8,3 +8,7 @@ bin/executor
 bin/kms
 bin/network
 bin/storage
+genesis.toml
+init_sys_config.toml
+admin_key_id
+admin_kms.db
