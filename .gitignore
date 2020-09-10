@@ -8,6 +8,7 @@ bin/executor
 bin/kms
 bin/network
 bin/storage
+bin/gen-config4cita-cloud
 genesis.toml
 init_sys_config.toml
 admin_key_id

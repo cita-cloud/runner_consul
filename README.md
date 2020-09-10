@@ -111,7 +111,22 @@ block_delay_number = 6
    - 每个节点文件中`genesis.toml`和`init_sys_config.toml`两个配置文件。
    - 每个节点文件夹中`kms.db`是预先存放了验证节点私钥的`kms`数据库文件，`validator_key_id`为对应的私钥的序号。
 
-5. 在项目根目录下执行如下命令启动节点，参数为节点的序号：
+5. 生成`syncthing`的配置文件，并启动相关服务。
+
+   ```shell
+   $ bin/create_syncthing_configs.sh
+   b2ff58efe3156ac0eec14929c0af8ed666bdd1b84f749685f4017b829b8f76e9
+   device_id: HPOVTOR-2GYNZTD-JEEHZ65-SRZNLZF-YQS3DXB-SRQB4HT-7GS5Y3Z-ZTE2HQ2
+   da27602b27a592755c466f2069fb0fe501fd9bdefc163fe16e3a38f118ffabe9
+   device_id: YPATMTR-766CUA2-ZCDPD24-VIU5VN5-RB34FKU-B4ONKW3-WR2RTIQ-6UPT4QM
+   device_ids: HPOVTOR-2GYNZTD-JEEHZ65-SRZNLZF-YQS3DXB-SRQB4HT-7GS5Y3Z-ZTE2HQ2;YPATMTR-766CUA2-ZCDPD24-VIU5VN5-RB34FKU-B4ONKW3-WR2RTIQ-6UPT4QM;  peers: node0:22000;node1:22001;
+   chain_name: test-chain
+   peers: [Peer { ip: "node0", port: 22000 }, Peer { ip: "node1", port: 22001 }]
+   ids: ["HPOVTOR-2GYNZTD-JEEHZ65-SRZNLZF-YQS3DXB-SRQB4HT-7GS5Y3Z-ZTE2HQ2", "YPATMTR-766CUA2-ZCDPD24-VIU5VN5-RB34FKU-B4ONKW3-WR2RTIQ-6UPT4QM"]
+   version: 32
+   ```
+   
+6. 在项目根目录下执行如下命令启动节点，参数为节点的序号：
 
    ```
    ./bin/start_node 0
