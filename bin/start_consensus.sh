@@ -27,6 +27,7 @@ consul kv put "node$node_index/global.consensus.block_delay_number" 6
 
 #start consensus service
 SERVICE_PORT=$grpc_port \
+NODE_ID=$node_index \
 NODE_NAME=node$node_index \
 SERVICE_NAME=$service_name \
 consul-template -template "$ROOT_PATH/template/log4rs.tpl:${service_name}-log4rs.yaml" \
